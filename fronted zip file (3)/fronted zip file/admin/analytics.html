@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analytics | QueueCraft</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .analytics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .chart-card h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card.visitors {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .stat-card.avg-wait {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .stat-card.completed {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <aside class="sidebar">
+        <div class="logo">QueueCraft</div>
+        <nav class="menu">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="analytics.html" class="active">Analytics</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+        <div class="admin">Admin User<br><small>Manager</small></div>
+    </aside>
+
+    <main class="main">
+        <div class="topbar">
+            <h2>Analytics Dashboard</h2>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Visitors Today</div>
+                <div class="stat-number">342</div>
+                <div class="stat-label">+12% from yesterday</div>
+            </div>
+            <div class="stat-card visitors">
+                <div class="stat-label">Average Wait Time</div>
+                <div class="stat-number">8.5m</div>
+                <div class="stat-label">-15% improvement</div>
+            </div>
+            <div class="stat-card avg-wait">
+                <div class="stat-label">Completed Queues</div>
+                <div class="stat-number">298</div>
+                <div class="stat-label">87% completion rate</div>
+            </div>
+            <div class="stat-card completed">
+                <div class="stat-label">Active Queues</div>
+                <div class="stat-number">12</div>
+                <div class="stat-label">4 pending</div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="analytics-container">
+            <!-- Peak Hours Chart -->
+            <div class="chart-card">
+                <h3>Peak Hours</h3>
+                <div class="chart-container">
+                    <canvas id="peakHoursChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Queue Status Distribution -->
+            <div class="chart-card">
+                <h3>Queue Status Distribution</h3>
+                <div class="chart-container">
+                    <canvas id="queueStatusChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Daily Traffic -->
+            <div class="chart-card">
+                <h3>Weekly Traffic</h3>
+                <div class="chart-container">
+                    <canvas id="dailyTrafficChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Wait Time Trend -->
+            <div class="chart-card">
+                <h3>Wait Time Trend</h3>
+                <div class="chart-container">
+                    <canvas id="waitTimeTrendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Department Performance -->
+            <div class="chart-card">
+                <h3>Department Performance</h3>
+                <div class="chart-container">
+                    <canvas id="departmentChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Customer Satisfaction -->
+            <div class="chart-card">
+                <h3>Customer Satisfaction Ratings</h3>
+                <div class="chart-container">
+                    <canvas id="satisfactionChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Peak Hours Chart
+    const peakHoursCtx = document.getElementById('peakHoursChart').getContext('2d');
+    new Chart(peakHoursCtx, {
+        type: 'bar',
+        data: {
+            labels: ['9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM'],
+            datasets: [{
+                label: 'Visitors',
+                data: [12, 19, 15, 25, 32, 28, 22, 18, 10],
+                backgroundColor: 'rgba(102, 126, 234, 0.7)',
+                borderColor: 'rgba(102, 126, 234, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 40
+                }
+            }
+        }
+    });
+
+    // Queue Status Distribution
+    const queueStatusCtx = document.getElementById('queueStatusChart').getContext('2d');
+    new Chart(queueStatusCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Completed', 'In Progress', 'Pending', 'Cancelled'],
+            datasets: [{
+                data: [298, 34, 8, 2],
+                backgroundColor: [
+                    'rgba(67, 233, 123, 0.7)',
+                    'rgba(74, 172, 254, 0.7)',
+                    'rgba(240, 147, 251, 0.7)',
+                    'rgba(255, 107, 107, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(67, 233, 123, 1)',
+                    'rgba(74, 172, 254, 1)',
+                    'rgba(240, 147, 251, 1)',
+                    'rgba(255, 107, 107, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });
+
+    // Daily Traffic Chart
+    const dailyTrafficCtx = document.getElementById('dailyTrafficChart').getContext('2d');
+    new Chart(dailyTrafficCtx, {
+        type: 'line',
+        data: {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            datasets: [{
+                label: 'Visitors',
+                data: [65, 78, 90, 85, 92, 88, 72],
+                borderColor: 'rgba(245, 87, 108, 1)',
+                backgroundColor: 'rgba(245, 87, 108, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+
+    // Wait Time Trend Chart
+    const waitTimeTrendCtx = document.getElementById('waitTimeTrendChart').getContext('2d');
+    new Chart(waitTimeTrendCtx, {
+        type: 'line',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+            datasets: [{
+                label: 'Average Wait Time (minutes)',
+                data: [12, 11, 10, 9, 8.5],
+                borderColor: 'rgba(79, 172, 254, 1)',
+                backgroundColor: 'rgba(79, 172, 254, 0.1)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 15
+                }
+            }
+        }
+    });
+
+    // Department Performance Chart
+    const departmentCtx = document.getElementById('departmentChart').getContext('2d');
+    new Chart(departmentCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Counter 1', 'Counter 2', 'Counter 3', 'Counter 4', 'Counter 5'],
+            datasets: [{
+                label: 'Customers Served',
+                data: [68, 75, 62, 81, 56],
+                backgroundColor: [
+                    'rgba(67, 233, 123, 0.7)',
+                    'rgba(74, 172, 254, 0.7)',
+                    'rgba(240, 147, 251, 0.7)',
+                    'rgba(102, 126, 234, 0.7)',
+                    'rgba(245, 87, 108, 0.7)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+
+    // Customer Satisfaction Chart
+    const satisfactionCtx = document.getElementById('satisfactionChart').getContext('2d');
+    new Chart(satisfactionCtx, {
+        type: 'radar',
+        data: {
+            labels: ['Service Speed', 'Staff Courtesy', 'Cleanliness', 'Efficiency', 'Overall Experience'],
+            datasets: [{
+                label: 'Satisfaction Score',
+                data: [92, 88, 85, 90, 87],
+                borderColor: 'rgba(102, 126, 234, 1)',
+                backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

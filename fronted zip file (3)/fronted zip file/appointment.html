@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointments | Q-Flow</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { display: flex; }
+        .sidebar { width: 200px;  background: linear-gradient(180deg, #1e293b, #0f172a); padding: 20px; }
+        .main { flex: 1; padding: 20px; }
+        .appointments-layout { display: flex; gap: 20px; }
+        .card { background: #D3D3D3; padding: 20px; border: 1px solid #ccc; flex: 1; }
+        .form-row { display: flex; gap: 10px; }
+        .appointment-item { display: flex; gap: 10px; margin-bottom: 10px; }
+        .time-box { background: #007bff; color: #fff; padding: 5px 10px; border-radius: 4px; }
+        button { margin-top: 10px; padding: 8px 12px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">QueueCraft</div>
+        <nav class="menu">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="queue.html">Queue Mgmt</a>
+            <a href="appointment.html" class="active">Appointments</a>
+            <a href="analytics.html">Analytics</a>
+            <a href="settings.html">Settings</a>
+        </nav>
+        <div class="admin">
+            <strong>Admin User</strong><br>
+            <small>Manager</small>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOP BAR -->
+        <div class="topbar">
+            <h2>Appointments</h2>
+            <button class="new-btn">Signup</button>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="appointments-layout">
+
+            <!-- LEFT: NEW APPOINTMENT -->
+            <div class="card">
+                <h3>New Appointment</h3>
+
+                <label>Customer Name</label>
+                <input type="text" id="customerName" value="John Doe">
+
+                <div class="form-row">
+                    <div>
+                        <label>Date</label>
+                        <!-- Calendar picker -->
+                        <input type="date" id="appointmentDate">
+                    </div>
+                    <div>
+                        <label>Time</label>
+                        <!-- Clock picker -->
+                        <input type="time" id="appointmentTime">
+                    </div>
+                </div>
+
+                <label>Category</label>
+                <select id="appointmentCategory">
+                    <option>General Inquiry</option>
+                    <option>Loan Application</option>
+                    <option>Account Services</option>
+                </select>
+
+                <button class="schedule-btn" id="scheduleBtn">
+                    Schedule Appointment
+                </button>
+            </div>
+
+            <!-- RIGHT: UPCOMING APPOINTMENTS -->
+            <div class="card">
+                <h3>Upcoming Appointments</h3>
+                <div id="appointmentsList">
+                    <div class="appointment-item">
+                        <div class="time-box">02:00 PM</div>
+                        <div>
+                            <strong>Dr. Silberman</strong><br>
+                            <small>General Inquiry • 2023-10-24</small>
+                        </div>
+                    </div>
+                    <div class="appointment-item">
+                        <div class="time-box">10:00 AM</div>
+                        <div>
+                            <strong>Sarah Connor</strong><br>
+                            <small>Loan Application • 2023-10-24</small>
+                        </div>
+                    </div>
+                    <div class="appointment-item">
+                        <div class="time-box">11:30 AM</div>
+                        <div>
+                            <strong>Kyle Reese</strong><br>
+                            <small>Account Services • 2023-10-24</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+</div>
+
+<script>
+document.getElementById("scheduleBtn").addEventListener("click", function() {
+    const name = document.getElementById("customerName").value;
+    const date = document.getElementById("appointmentDate").value;
+    const time = document.getElementById("appointmentTime").value;
+    const category = document.getElementById("appointmentCategory").value;
+
+    if (!name || !date || !time) {
+        alert("Please fill all fields!");
+        return;
+    }
+
+    // Format time (HH:MM → 12-hour with AM/PM)
+    let [hour, minute] = time.split(":");
+    hour = parseInt(hour);
+    const ampm = hour >= 12 ? "PM" : "AM";
+    hour = hour % 12 || 12;
+    const formattedTime = `${hour}:${minute} ${ampm}`;
+
+    // Create new appointment item
+    const newAppointment = document.createElement("div");
+    newAppointment.classList.add("appointment-item");
+    newAppointment.innerHTML = `
+        <div class="time-box">${formattedTime}</div>
+        <div>
+            <strong>${name}</strong><br>
+            <small>${category} • ${date}</small>
+        </div>
+    `;
+
+    // Add to list
+    document.getElementById("appointmentsList").appendChild(newAppointment);
+
+    // Clear inputs
+    document.getElementById("customerName").value = "";
+    document.getElementById("appointmentDate").value = "";
+    document.getElementById("appointmentTime").value = "";
+});
+</script>
+
+</body>
+</html>

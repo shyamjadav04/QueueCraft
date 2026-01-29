@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings | Q-Flow</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .settings-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .settings-card h3 {
+            margin-bottom: 25px;
+            color: #1e293b;
+            font-size: 24px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section h4 {
+            color: #334155;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .section label {
+            display: block;
+            margin-bottom: 8px;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .section input[type="number"],
+        .section input[type="text"],
+        .section input[type="color"],
+        .section select {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .section input:focus,
+        .section select:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .tag:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .tag .remove-tag {
+            cursor: pointer;
+            font-weight: bold;
+            padding: 0 4px;
+        }
+
+        .add-tag {
+            padding: 8px 16px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .add-tag:hover {
+            background: #059669;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox label {
+            color: #334155;
+            font-size: 15px;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .priority-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .priority-item input[type="number"] {
+            width: 80px;
+            padding: 6px;
+            margin-left: 10px;
+        }
+
+        .color-picker-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .color-option label {
+            font-size: 13px;
+        }
+
+        .color-option input[type="color"] {
+            width: 100px;
+            height: 40px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .settings-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+
+        .btn-reset {
+            padding: 12px 24px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-reset:hover {
+            background: #dc2626;
+        }
+
+        .btn-save {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #e2e8f0;
+            margin: 25px 0;
+        }
+
+        .success-message {
+            display: none;
+            padding: 12px 20px;
+            background: #10b981;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal-content h4 {
+            margin-bottom: 20px;
+            color: #1e293b;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .modal-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .modal-actions .btn-cancel {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .modal-actions .btn-confirm {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">QueueCraft</div>
+
+        <nav class="menu">
+            <a href="dashboard.html">Dashboard</a>
+            
+            <a href="analytics.html">Analytics</a>
+            <a href="settings.html" class="active">Settings</a>
+        </nav>
+
+        <div class="admin">
+            <strong>Admin User</strong><br>
+            <small>Manager</small>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <h2>Settings</h2>
+            <button class="new-btn">Signup</button>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+            ✓ Settings saved successfully!
+        </div>
+
+        <!-- SETTINGS CARD -->
+        <div class="card settings-card">
+
+            <h3>System Configuration</h3>
+
+            <!-- Counter Configuration -->
+            <div class="section">
+                <h4>Counter Configuration</h4>
+
+                <label>Number of Counters</label>
+                <input type="number" id="counterCount" value="4" min="1" max="20">
+            </div>
+
+            <hr>
+
+            <!-- Service Types -->
+            <div class="section">
+                <h4>Service Types</h4>
+
+                <div class="tag-container" id="serviceTagContainer">
+                    <span class="tag" data-service="General">General <span class="remove-tag" onclick="removeService(this)">✕</span></span>
+                    <span class="tag" data-service="Accounts">Accounts <span class="remove-tag" onclick="removeService(this)">✕</span></span>
+                    <span class="tag" data-service="Loans">Loans <span class="remove-tag" onclick="removeService(this)">✕</span></span>
+                    <button class="add-tag" onclick="openAddServiceModal()">+ Add Service</button>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Theme Colors -->
+            <div class="section">
+                <h4>Theme Colors</h4>
+
+                <div class="color-picker-group">
+                    <div class="color-option">
+                        <label>Primary Color</label>
+                        <input type="color" id="primaryColor" value="#667eea">
+                    </div>
+                    <div class="color-option">
+                        <label>Secondary Color</label>
+                        <input type="color" id="secondaryColor" value="#764ba2">
+                    </div>
+                    <div class="color-option">
+                        <label>Accent Color</label>
+                        <input type="color" id="accentColor" value="#10b981">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Priority Rules -->
+            <div class="section">
+                <h4>Priority Rules</h4>
+
+                <div class="priority-item">
+                    <div class="checkbox">
+                        <input type="checkbox" id="priorityEmergency" checked>
+                        <label for="priorityEmergency">Emergency Priority</label>
+                    </div>
+                    <input type="number" id="emergencyLevel" value="1" min="1" max="10" title="Priority Level (1=Highest)">
+                </div>
+
+                <div class="priority-item">
+                    <div class="checkbox">
+                        <input type="checkbox" id="prioritySenior" checked>
+                        <label for="prioritySenior">Senior Citizens Priority</label>
+                    </div>
+                    <input type="number" id="seniorLevel" value="2" min="1" max="10" title="Priority Level">
+                </div>
+
+                <div class="priority-item">
+                    <div class="checkbox">
+                        <input type="checkbox" id="priorityWomen" checked>
+                        <label for="priorityWomen">Women Priority</label>
+                    </div>
+                    <input type="number" id="womenLevel" value="3" min="1" max="10" title="Priority Level">
+                </div>
+
+                <div class="priority-item">
+                    <div class="checkbox">
+                        <input type="checkbox" id="priorityNormal">
+                        <label for="priorityNormal">Normal Queue</label>
+                    </div>
+                    <input type="number" id="normalLevel" value="4" min="1" max="10" title="Priority Level">
+                </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="settings-actions">
+                <button class="btn-reset" onclick="resetSettings()">Reset to Default</button>
+                <button class="btn-save" onclick="saveSettings()">Save Changes</button>
+            </div>
+
+        </div>
+
+    </main>
+</div>
+
+<!-- Add Service Modal -->
+<div class="modal" id="addServiceModal">
+    <div class="modal-content">
+        <h4>Add New Service</h4>
+        <input type="text" id="newServiceName" placeholder="Enter service name" maxlength="30">
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeAddServiceModal()">Cancel</button>
+            <button class="btn-confirm" onclick="addService()">Add Service</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Load settings from localStorage on page load
+    window.addEventListener('DOMContentLoaded', function() {
+        loadSettings();
+    });
+
+    // Save settings to localStorage
+    function saveSettings() {
+        const settings = {
+            counterCount: document.getElementById('counterCount').value,
+            services: getServiceList(),
+            colors: {
+                primary: document.getElementById('primaryColor').value,
+                secondary: document.getElementById('secondaryColor').value,
+                accent: document.getElementById('accentColor').value
+            },
+            priorities: {
+                emergency: {
+                    enabled: document.getElementById('priorityEmergency').checked,
+                    level: document.getElementById('emergencyLevel').value
+                },
+                senior: {
+                    enabled: document.getElementById('prioritySenior').checked,
+                    level: document.getElementById('seniorLevel').value
+                },
+                women: {
+                    enabled: document.getElementById('priorityWomen').checked,
+                    level: document.getElementById('womenLevel').value
+                },
+                normal: {
+                    enabled: document.getElementById('priorityNormal').checked,
+                    level: document.getElementById('normalLevel').value
+                }
+            }
+        };
+
+        localStorage.setItem('queueSettings', JSON.stringify(settings));
+        
+        // Apply colors
+        applyColors();
+        
+        // Show success message
+        showSuccessMessage();
+        
+        console.log('Settings saved:', settings);
+    }
+
+    // Load settings from localStorage
+    function loadSettings() {
+        const savedSettings = localStorage.getItem('queueSettings');
+        
+        if (savedSettings) {
+            const settings = JSON.parse(savedSettings);
+            
+            // Load counter count
+            if (settings.counterCount) {
+                document.getElementById('counterCount').value = settings.counterCount;
+            }
+            
+            // Load services
+            if (settings.services && settings.services.length > 0) {
+                loadServices(settings.services);
+            }
+            
+            // Load colors
+            if (settings.colors) {
+                document.getElementById('primaryColor').value = settings.colors.primary || '#667eea';
+                document.getElementById('secondaryColor').value = settings.colors.secondary || '#764ba2';
+                document.getElementById('accentColor').value = settings.colors.accent || '#10b981';
+                applyColors();
+            }
+            
+            // Load priorities
+            if (settings.priorities) {
+                if (settings.priorities.emergency) {
+                    document.getElementById('priorityEmergency').checked = settings.priorities.emergency.enabled;
+                    document.getElementById('emergencyLevel').value = settings.priorities.emergency.level;
+                }
+                if (settings.priorities.senior) {
+                    document.getElementById('prioritySenior').checked = settings.priorities.senior.enabled;
+                    document.getElementById('seniorLevel').value = settings.priorities.senior.level;
+                }
+                if (settings.priorities.women) {
+                    document.getElementById('priorityWomen').checked = settings.priorities.women.enabled;
+                    document.getElementById('womenLevel').value = settings.priorities.women.level;
+                }
+                if (settings.priorities.normal) {
+                    document.getElementById('priorityNormal').checked = settings.priorities.normal.enabled;
+                    document.getElementById('normalLevel').value = settings.priorities.normal.level;
+                }
+            }
+        }
+    }
+
+    // Get list of services from tags
+    function getServiceList() {
+        const tags = document.querySelectorAll('.tag[data-service]');
+        const services = [];
+        tags.forEach(tag => {
+            services.push(tag.getAttribute('data-service'));
+        });
+        return services;
+    }
+
+    // Load services into tag container
+    function loadServices(services) {
+        const container = document.getElementById('serviceTagContainer');
+        container.innerHTML = '';
+        
+        services.forEach(service => {
+            const tag = document.createElement('span');
+            tag.className = 'tag';
+            tag.setAttribute('data-service', service);
+            tag.innerHTML = `${service} <span class="remove-tag" onclick="removeService(this)">✕</span>`;
+            container.appendChild(tag);
+        });
+        
+        // Add the "Add Service" button
+        const addBtn = document.createElement('button');
+        addBtn.className = 'add-tag';
+        addBtn.textContent = '+ Add Service';
+        addBtn.onclick = openAddServiceModal;
+        container.appendChild(addBtn);
+    }
+
+    // Open modal to add service
+    function openAddServiceModal() {
+        document.getElementById('addServiceModal').classList.add('show');
+        document.getElementById('newServiceName').value = '';
+        document.getElementById('newServiceName').focus();
+    }
+
+    // Close add service modal
+    function closeAddServiceModal() {
+        document.getElementById('addServiceModal').classList.remove('show');
+    }
+
+    // Add new service
+    function addService() {
+        const serviceName = document.getElementById('newServiceName').value.trim();
+        
+        if (!serviceName) {
+            alert('Please enter a service name');
+            return;
+        }
+        
+        // Check if service already exists
+        const existingServices = getServiceList();
+        if (existingServices.includes(serviceName)) {
+            alert('This service already exists');
+            return;
+        }
+        
+        // Add the new service tag
+        const container = document.getElementById('serviceTagContainer');
+        const addBtn = container.querySelector('.add-tag');
+        
+        const tag = document.createElement('span');
+        tag.className = 'tag';
+        tag.setAttribute('data-service', serviceName);
+        tag.innerHTML = `${serviceName} <span class="remove-tag" onclick="removeService(this)">✕</span>`;
+        
+        container.insertBefore(tag, addBtn);
+        
+        closeAddServiceModal();
+    }
+
+    // Remove service
+    function removeService(element) {
+        if (confirm('Are you sure you want to remove this service?')) {
+            element.parentElement.remove();
+        }
+    }
+
+    // Reset settings to default
+    function resetSettings() {
+        if (confirm('Are you sure you want to reset all settings to default?')) {
+            localStorage.removeItem('queueSettings');
+            location.reload();
+        }
+    }
+
+    // Apply colors to the page
+    function applyColors() {
+        const primary = document.getElementById('primaryColor').value;
+        const secondary = document.getElementById('secondaryColor').value;
+        const accent = document.getElementById('accentColor').value;
+        
+        // Update CSS variables or styles
+        document.documentElement.style.setProperty('--primary-color', primary);
+        document.documentElement.style.setProperty('--secondary-color', secondary);
+        document.documentElement.style.setProperty('--accent-color', accent);
+        
+        // Update tag backgrounds
+        const tags = document.querySelectorAll('.tag');
+        tags.forEach(tag => {
+            tag.style.background = `linear-gradient(135deg, ${primary} 0%, ${secondary} 100%)`;
+        });
+        
+        // Update save button
+        const saveBtn = document.querySelector('.btn-save');
+        if (saveBtn) {
+            saveBtn.style.background = `linear-gradient(135deg, ${primary} 0%, ${secondary} 100%)`;
+        }
+        
+        // Update add button
+        const addBtn = document.querySelector('.add-tag');
+        if (addBtn) {
+            addBtn.style.background = accent;
+        }
+    }
+
+    // Show success message
+    function showSuccessMessage() {
+        const msg = document.getElementById('successMessage');
+        msg.classList.add('show');
+        
+        setTimeout(() => {
+            msg.classList.remove('show');
+        }, 3000);
+    }
+
+    // Handle Enter key in modal
+    document.getElementById('newServiceName').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            addService();
+        }
+    });
+
+    // Close modal on outside click
+    document.getElementById('addServiceModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeAddServiceModal();
+        }
+    });
+</script>
+
+</body>
+</html>

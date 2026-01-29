@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | Q-Flow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">QueueCraft</div>
+
+        <nav class="menu">
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="queue.html">Queue Mgmt</a>
+            <a href="appointment.html">Appointments</a>
+            
+        </nav>
+
+        <div class="admin">
+            <strong>Admin User</strong><br>
+            <small>Manager</small>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOP BAR -->
+        <div class="topbar">
+            <h2>Dashboard</h2>
+            <button class="new-btn">signup</button>
+        </div>
+
+        <!-- TOP CARDS -->
+        <div class="cards">
+            <div class="card">
+                <p>Now Serving</p>
+                <h3>A-102</h3>
+                <small>Counter 3</small>
+            </div>
+
+            <div class="card">
+                <p>In Queue</p>
+                <h3>4</h3>
+                <small>People waiting</small>
+            </div>
+
+            <div class="card">
+                <p>Avg Wait Time</p>
+                <h3>14m</h3>
+                <small>-2m from yesterday</small>
+            </div>
+
+            <div class="card">
+                <p>Appointments</p>
+                <h3>3</h3>
+                <small>Scheduled today</small>
+            </div>
+        </div>
+
+        <!-- LOWER SECTION -->
+        <div class="grid-2">
+
+            <!-- WAITING QUEUE TABLE -->
+            <div class="card">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h3>Waiting Queue</h3>
+                    <a href="queue.html" style="color:#2563eb; font-size:14px;">View All</a>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Token</th>
+                            <th>Service Type</th>
+                            <th>Wait Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A-103</td>
+                            <td>General</td>
+                            <td>12m</td>
+                            <td><span class="status waiting">Waiting</span></td>
+                        </tr>
+                        <tr>
+                            <td>B-201</td>
+                            <td>Accounts</td>
+                            <td>18m</td>
+                            <td><span class="status waiting">Waiting</span></td>
+                        </tr>
+                        <tr>
+                            <td>C-305</td>
+                            <td>Loans</td>
+                            <td>5m</td>
+                            <td><span class="status waiting">Waiting</span></td>
+                        </tr>
+                        <tr>
+                            <td>A-104</td>
+                            <td>_triangle General</td>
+                            <td>2m</td>
+                            <td><span class="status waiting">Waiting</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TODAY STATS -->
+            <div class="card">
+                <h3>Today's Statistics</h3>
+
+                <div style="margin-top:15px;">
+                    <p><strong>Tokens Served</strong><br>45</p>
+                    <p style="margin-top:10px;"><strong>Avg. Service Time</strong><br>5m 30s</p>
+                    <p style="margin-top:10px;"><strong>Longest Wait</strong><br>28m</p>
+                    <p style="margin-top:10px;"><strong>No Shows</strong><br>3</p>
+                </div>
+
+                <div class="chart-box" style="margin-top:20px;">
+                    Line Chart
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>

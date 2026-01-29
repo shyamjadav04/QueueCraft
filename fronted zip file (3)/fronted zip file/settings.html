@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings | Q-Flow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="logo">QueueCraft</div>
+
+        <nav class="menu">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="queue.html">Queue Mgmt</a>
+            <a href="appointment.html">Appointments</a>
+            <a href="analytics.html">Analytics</a>
+            <a href="settings.html" class="active">Settings</a>
+        </nav>
+
+        <div class="admin">
+            <strong>Admin User</strong><br>
+            <small>Manager</small>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <h2>Settings</h2>
+            <button class="new-btn">Signup</button>
+        </div>
+
+        <!-- SETTINGS CARD -->
+        <div class="card settings-card">
+
+            <h3>System Configuration</h3>
+
+            <!-- Counter Configuration -->
+            <div class="section">
+                <h4>Counter Configuration</h4>
+
+                <label>Number of Counters</label>
+                <input type="number" value="4">
+            </div>
+
+            <hr>
+
+            <!-- Service Types -->
+            <div class="section">
+                <h4>Service Types</h4>
+
+                <div class="tag-container">
+                    <span class="tag">General ✕</span>
+                    <span class="tag">Accounts ✕</span>
+                    <span class="tag">Loans ✕</span>
+                    <button class="add-tag">+ Add</button>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Priority Rules -->
+            <div class="section">
+                <h4>Priority Rules</h4>
+
+                <div class="checkbox">
+                    <input type="checkbox" checked>
+                    <label>Senior Citizens Priority</label>
+                </div>
+
+                <div class="checkbox">
+                    <input type="checkbox" checked>
+                    <label>Premium Customers Priority</label>
+                </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="settings-actions">
+                <button class="btn-reset">Reset</button>
+                <button class="btn-save">Save Changes</button>
+            </div>
+
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,393 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* GLOBAL */
+body {
+    background: linear-gradient(135deg, #e3e6eb, #cfd3d8);
+    
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* ===================
+   SIDEBAR (Floating)
+=================== */
+
+.sidebar {
+    width: 240px;
+    background: linear-gradient(180deg, #1e293b, #0f172a);
+    padding: 20px;
+    border-radius: 18px;
+    height: calc(100vh - 40px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Logo/Title */
+.logo {
+    font-size: 22px;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 35px;
+}
+
+/* Sidebar Menu Links */
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #cbd5e1;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: 0.25s ease;
+    cursor: pointer;
+}
+
+/* Active / Hover style */
+.menu a:hover,
+.menu a.active {
+    background: #2563eb;
+    color: white;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+}
+
+/* Sidebar Footer */
+.admin {
+    margin-top: auto;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+/* ===================
+   MAIN AREA
+=================== */
+
+.main {
+    flex: 1;
+    padding: 10px 10px;
+}
+
+/* Topbar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.new-btn {
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Cards */
+.card {
+    background: #b1b545;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+/* Grid Layout */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+/* ===================
+   TABLES
+=================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background: #eef2f6;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+/* ===================
+   STATUS LABELS
+=================== */
+
+.status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Status Colors */
+.status.waiting {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.status.serving {
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+/* ===================
+   BUTTONS
+=================== */
+
+.btn-blue {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+.btn-green {
+    background: #22c55e;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+.btn-red {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+/* ===================
+   FORMS
+=================== */
+
+label {
+    display: block;
+    margin-top: 14px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+}
+
+/* ===================
+   CHARTS
+=================== */
+
+.chart-box {
+    height: 240px;
+    background: #e2e8f0;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* ===================
+   APPOINTMENTS
+=================== */
+
+.appointments-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.schedule-btn {
+    margin-top: 20px;
+    width: 100%;
+    background: #1d4ed8;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.appointment-item {
+    display: flex;
+    gap: 15px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #f8fafc;
+    margin-top: 12px;
+    align-items: center;
+}
+
+.time-box {
+    min-width: 70px;
+    text-align: center;
+    padding: 8px;
+    border-radius: 8px;
+    background: #e0e7ff;
+    color: #1e3a8a;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+/* ===================
+   SETTINGS
+=================== */
+
+.settings-card {
+    max-width: 900px;
+}
+
+.settings-card h3 {
+    margin-bottom: 20px;
+}
+
+.section {
+    margin-top: 20px;
+}
+
+.section h4 {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+/* Tags */
+.tag-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    background: #e0e7ff;
+    color: #1e3a8a;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.add-tag {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    cursor: pointer;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.settings-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.btn-reset {
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background: #f1f5f9;
+    cursor: pointer;
+}
+
+.btn-save {
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: none;
+    background: #1d4ed8;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* TOP DASHBOARD CARDS */
+.cards .card:nth-child(1) {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    color: white;
+}
+.cards .card:nth-child(2) {
+    background: linear-gradient(135deg, #10b981, #34d399);
+    color: white;
+}
+.cards .card:nth-child(3) {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    color: white;
+}
+.cards .card:nth-child(4) {
+    background: linear-gradient(135deg, #4a97b1, #34cbcb);
+    color: white;
+}
+
+/* TODAY'S STATS (Right bottom) */
+.grid-2 .card:nth-child(2) {
+    background: linear-gradient(135deg, #d2c048, #8ef472);
+    color: white;
+}
+.grid-2 .card:nth-child(2) .chart-box {
+    background: rgba(255,255,255,0.25);
+    border-radius: 12px;
+}
+
+/* WAITING QUEUE (Left bottom) */
+.grid-2 .card:nth-child(1) {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+/* STATUS COLORS UPDATED */
+.status.waiting {
+    background: #fde68a;
+    color: #b45309;
+}
+.status.serving {
+    background: #bfdbfe;
+    color: #1d4ed8;
+}
+

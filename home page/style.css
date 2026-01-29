@@ -1,0 +1,455 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #0b0f1a;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* BUTTONS */
+.btn {
+    padding: 12px 22px;
+    border-radius: 30px;
+    transition: 0.3s;
+    font-weight: 600;
+
+    position: relative;
+    z-index: 5;
+    cursor: pointer;
+}
+
+
+.primary {
+    background: linear-gradient(45deg, #6a5cff, #00d4ff);
+}
+
+.secondary {
+    border: 2px solid #6a5cff;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* HERO */
+.hero {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #1b1f3b, #0b0f1a);
+    padding: 30px 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background:
+        linear-gradient(120deg, rgba(106,92,255,0.35), rgba(0,212,255,0.15)),
+        url("https://www.transparenttextures.com/patterns/cubes.png");
+
+    opacity: 0.6;
+    animation: floatBg 12s ease-in-out infinite alternate;
+    z-index: 0;
+    pointer-events: none;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 28px;
+}
+
+.logo span {
+    color: #6a5cff;
+}
+
+.hero-layout {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+}
+
+.hero-left {
+    flex: 1;
+    padding: 120px 80px;
+    position: relative;
+    overflow: visible;
+    z-index: 5;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h2 {
+    font-size: 64px;
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+.hero-content p {
+    font-size: 18px;
+    max-width: 520px;
+    margin: 22px 0 30px;
+    opacity: 0.85;
+}
+
+/* FEATURES */
+.features {
+    padding: 80px;
+    text-align: center;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.card {
+    background: #12162a;
+    padding: 30px;
+    border-radius: 20px;
+    transition: 0.4s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 30px rgba(106,92,255,0.4);
+}
+
+/* ABOUT */
+.about {
+    display: flex;
+    gap: 40px;
+    padding: 80px;
+    align-items: center;
+}
+
+.about img {
+    width: 100%;
+    border-radius: 20px;
+}
+
+/* CTA */
+.cta {
+    padding: 80px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #6a5cff, #00d4ff);
+    color: #000;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+
+/* SCROLL ANIMATION */
+.reveal {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: 1s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Enhanced scroll animations for features section */
+.features.reveal {
+    transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.features.reveal h2 {
+    animation: slideInDown 1s ease-out forwards;
+}
+
+.features.reveal.active h2 {
+    opacity: 1;
+}
+
+.card {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reveal.active .card {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Scroll animations for About section */
+.about.reveal {
+    transition: all 1.2s ease-out;
+}
+
+.about.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about img {
+    opacity: 0;
+    transform: translateX(60px);
+    transition: all 1s ease-out;
+}
+
+.about.reveal.active img {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* CTA section scroll animation */
+.cta.reveal {
+    transition: all 1s ease-out;
+}
+
+.cta.reveal.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes floatBg {
+    from {
+        transform: translateY(0) translateX(0);
+    }
+    to {
+        transform: translateY(-20px) translateX(-15px);
+    }
+}
+
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-right {
+    flex: 1;
+    min-height: 400px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* FLOATING CARDS */
+.floating-card {
+    position: absolute;
+    background: rgba(18, 22, 42, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(106, 92, 255, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(106, 92, 255, 0.2);
+    animation: float 6s ease-in-out infinite;
+    width: 250px;
+}
+
+.card-1 {
+    top: 20px;
+    left: 0;
+    animation-delay: 0s;
+}
+
+.card-2 {
+    top: 200px;
+    right: 10px;
+    animation-delay: 1s;
+}
+
+.card-3 {
+    bottom: 30px;
+    left: 30px;
+    animation-delay: 2s;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.card-header .icon {
+    font-size: 28px;
+}
+
+.card-header span:last-child {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: rgba(106, 92, 255, 0.3);
+    color: #00d4ff;
+}
+
+.card-content h4 {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.card-content .stat {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.progress {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 75%;
+    background: linear-gradient(90deg, #6a5cff, #00d4ff);
+    animation: progressFill 2s ease-in-out infinite;
+}
+
+/* FLOATING PARTICLES */
+.floating-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, #6a5cff, transparent);
+    border-radius: 50%;
+    animation: particleFloat 8s ease-in-out infinite;
+}
+
+.p1 {
+    top: 10%;
+    left: 20%;
+    animation-delay: 0s;
+    opacity: 0.6;
+}
+
+.p2 {
+    top: 50%;
+    right: 15%;
+    animation-delay: 2s;
+    opacity: 0.5;
+}
+
+.p3 {
+    bottom: 20%;
+    left: 50%;
+    animation-delay: 4s;
+    opacity: 0.7;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes progressFill {
+    0%, 100% {
+        width: 60%;
+    }
+    50% {
+        width: 85%;
+    }
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-80px) translateX(30px);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .hero-left {
+        padding: 80px 30px;
+        text-align: center;
+    }
+
+    .hero-content h2 {
+        font-size: 44px;
+    }
+}
